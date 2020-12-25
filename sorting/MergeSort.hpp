@@ -27,19 +27,18 @@ inline void Sorter::Merge(Iter start, Iter mid, Iter end, Comp comp) {
     }
     i = 0;
     j = 0;
-    Iter k = start;
     while (i < n1 && j < n2) {
         if (comp(L[i], mid[j])) {
-            *k++ = L[i++];
+            *start++ = L[i++];
         } else {
-            *k++ = mid[j++];
+            *start++ = mid[j++];
         }
     }
     while (i < n1) {
-        *k++ = L[i++];
+        *start++ = L[i++];
     }
     while (j < n2) {
-        *k++ = mid[j++];
+        *start++ = mid[j++];
     }
 }
 
