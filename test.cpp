@@ -11,7 +11,7 @@ void TestMergeSort(int num, int size, int val_min, int val_max) {
 
     std::cout << "Running merge sort of total " << num
               << " random tests input\n";
-    std::cout << "contanier size = [0," << size << "], value =[" << val_min
+    std::cout << "contanier size = [1," << size << "], value =[" << val_min
               << "," << val_max << "]\n";
     WallTimer timer;
     std::vector<std::vector<int>> failed_tests;
@@ -27,7 +27,7 @@ void TestMergeSort(int num, int size, int val_min, int val_max) {
             failed_tests.emplace_back(test);
         }
     }
-    std::cout << "Test Finished, took " << timer.GetElapsed()
+    std::cout << "Test Finished, took " << timer.GetElapsedMS()
               << " millisecond.\n";
     std::cout << "Test result:\n Passed:" << num - failed_tests.size() << "/"
               << num << "\n";
@@ -41,8 +41,6 @@ void TestMergeSort(int num, int size, int val_min, int val_max) {
 }
 
 int main() {
-    TestMergeSort(100, 256, std::numeric_limits<int>::min(),
-                  std::numeric_limits<int>::max());
-
+    TestMergeSort(100, 20, -324, 700);
     return 0;
 }
