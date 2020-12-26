@@ -12,7 +12,7 @@ int main() {
     for (int i = 0; i < 10; ++i) {
         std::uniform_int_distribution<int> dist(0, 256);
         std::uniform_int_distribution<int> val_dist(
-            0, std::numeric_limits<int>::max());
+            std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
         std::vector<int> test(dist(mt));
         for (auto &t : test) {
             t = val_dist(mt);
