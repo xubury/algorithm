@@ -1,3 +1,6 @@
+#ifndef IO_HPP
+#define IO_HPP
+
 #include <iostream>
 #include <vector>
 
@@ -12,3 +15,5 @@ inline void PrintVector(Iter begin, Iter end) {
 }
 
 }  // namespace io
+
+#endif

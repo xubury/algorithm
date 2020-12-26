@@ -1,8 +1,8 @@
 #include <random>
 
 #include "sorting/MergeSort.hpp"
+#include "utils/IO.hpp"
 #include "utils/Validate.hpp"
-#include "utils/io.hpp"
 
 int main() {
     std::random_device rd;

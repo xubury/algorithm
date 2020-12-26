@@ -1,3 +1,6 @@
+#ifndef MERGESORT_H
+#define MERGESORT_H
+
 #include <functional>
 #include <vector>
 
@@ -51,3 +54,5 @@ inline void Sorter::MergeSort(Iter start, Iter end, Comp comp) {
     MergeSort(mid, end, comp);
     Merge(start, mid, end, comp);
 }
+
+#endif /* MERGESORT_H */
