@@ -12,6 +12,7 @@ void TestMergeSort(int num, int size, int val_min, int val_max) {
               << " random tests input\n";
     std::cout << "contanier size = [0," << size << "], value =[" << val_min
               << "," << val_max << "]\n";
+    // TODO:add a walltimer
     std::vector<std::vector<int>> failed_tests;
     for (int i = 0; i < num; ++i) {
         std::uniform_int_distribution<int> dist(1, size);
