@@ -16,7 +16,7 @@ class WallTimer {
     WallTimer();
     void Reset();
 
-    std::size_t GetElapsed() const;
+    std::size_t GetElapsedMS() const;
     float GetElapsedSec() const;
 };
 
@@ -24,14 +24,14 @@ inline WallTimer::WallTimer() { Reset(); }
 
 inline void WallTimer::Reset() { m_start = TimerClock::now(); }
 
-inline std::size_t WallTimer::GetElapsed() const {
+inline std::size_t WallTimer::GetElapsedMS() const {
     TimeDurationMS ms = TimerClock::now() - m_start;
     m_start.time_since_epoch();
     return ms.count();
 }
 
 inline float WallTimer::GetElapsedSec() const {
-    return static_cast<float>(GetElapsed()) / 1000.0f;
+    return static_cast<float>(GetElapsedMS()) / 1000.0f;
 }
 
 #endif /* TIMER_H */
