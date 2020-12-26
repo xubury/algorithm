@@ -2,6 +2,7 @@
 
 #include "sorting/MergeSort.hpp"
 #include "utils/IO.hpp"
+#include "utils/Timer.hpp"
 #include "utils/Validate.hpp"
 
 void TestMergeSort(int num, int size, int val_min, int val_max) {
@@ -12,7 +13,7 @@ void TestMergeSort(int num, int size, int val_min, int val_max) {
               << " random tests input\n";
     std::cout << "contanier size = [0," << size << "], value =[" << val_min
               << "," << val_max << "]\n";
-    // TODO:add a walltimer
+    WallTimer timer;
     std::vector<std::vector<int>> failed_tests;
     for (int i = 0; i < num; ++i) {
         std::uniform_int_distribution<int> dist(1, size);
@@ -26,6 +27,8 @@ void TestMergeSort(int num, int size, int val_min, int val_max) {
             failed_tests.emplace_back(test);
         }
     }
+    std::cout << "Test Finished, took " << timer.GetElapsed()
+              << " millisecond.\n";
     std::cout << "Test result:\n Passed:" << num - failed_tests.size() << "/"
               << num << "\n";
     if (!failed_tests.empty()) {
@@ -38,7 +41,7 @@ void TestMergeSort(int num, int size, int val_min, int val_max) {
 }
 
 int main() {
-    TestMergeSort(10, 256, std::numeric_limits<int>::min(),
+    TestMergeSort(100, 256, std::numeric_limits<int>::min(),
                   std::numeric_limits<int>::max());
 
     return 0;
