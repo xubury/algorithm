@@ -6,9 +6,12 @@
 #include "utils/Timer.hpp"
 #include "utils/Validate.hpp"
 
-template <typename Comp, typename T, typename T2>
-void TestSorting(int num, int size, T val_min, T val_max, T2 sorter,
-                 Comp validate) {
+template <template <typename> class Comp, template <typename> class Validate,
+          template <typename, typename> class T2, typename T>
+void TestSorting(int num, int size, T val_min, T val_max,
+                 T2<typename std::vector<T>::iterator, Comp<T>> sorter =
+                     T2<typename std::vector<T>::iterator, Comp<T>>(),
+                 Validate<T> validate = Validate<T>()) {
     std::random_device rd;
     std::mt19937 mt(rd());
 
@@ -43,17 +46,11 @@ void TestSorting(int num, int size, T val_min, T val_max, T2 sorter,
 }
 
 int main() {
-    TestSorting(100, 20, -324, 700,
-                MergeSort<std::vector<int>::iterator, std::less<int>>(),
-                std::less_equal<int>());
-    TestSorting(100, 20, -324, 700,
-                MergeSort<std::vector<int>::iterator, std::greater<int>>(),
-                std::greater_equal<int>());
-    TestSorting(100, 20, -324, 700,
-                QuickSort<std::vector<int>::iterator, std::less<int>>(),
-                std::less_equal<int>());
-    TestSorting(100, 20, -324, 700,
-                QuickSort<std::vector<int>::iterator, std::greater<int>>(),
-                std::greater_equal<int>());
+    TestSorting<std::less, std::less_equal, MergeSort>(100, 20, -324, 700);
+    TestSorting<std::greater, std::greater_equal, MergeSort>(100, 20, -324,
+                                                             700);
+    TestSorting<std::less, std::less_equal, QuickSort>(100, 20, -324, 700);
+    TestSorting<std::greater, std::greater_equal, QuickSort>(100, 20, -324,
+                                                             700);
     return 0;
 }
