@@ -4,12 +4,12 @@
 #include <functional>
 #include <vector>
 
-class Sorter {
+class MergeSort {
    public:
     template <typename Iter,
               typename Comp =
                   std::less<typename std::iterator_traits<Iter>::value_type>>
-    static void MergeSort(Iter start, Iter end, Comp comp = Comp());
+    static void Sort(Iter start, Iter end, Comp comp = Comp());
 
    private:
     template <typename Iter,
@@ -19,7 +19,7 @@ class Sorter {
 };
 
 template <typename Iter, typename Comp>
-inline void Sorter::Merge(Iter start, Iter mid, Iter end, Comp comp) {
+inline void MergeSort::Merge(Iter start, Iter mid, Iter end, Comp comp) {
     std::size_t i = 0;
     std::size_t j = 0;
     std::size_t n1 = std::distance(start, mid);
@@ -46,7 +46,7 @@ inline void Sorter::Merge(Iter start, Iter mid, Iter end, Comp comp) {
 }
 
 template <typename Iter, typename Comp>
-inline void Sorter::MergeSort(Iter start, Iter end, Comp comp) {
+inline void MergeSort::Sort(Iter start, Iter end, Comp comp) {
     std::size_t dist = std::distance(start, end);
     if (dist < 2) return;
     Iter mid = start + dist / 2;

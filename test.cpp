@@ -22,7 +22,7 @@ void TestMergeSort(int num, int size, int val_min, int val_max) {
         for (auto &t : test) {
             t = val_dist(mt);
         }
-        Sorter::MergeSort(test.begin(), test.end());
+        MergeSort::Sort(test.begin(), test.end());
         if (!ValidateOrder(test.begin(), test.end())) {
             failed_tests.emplace_back(test);
         }
