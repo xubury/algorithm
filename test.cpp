@@ -6,11 +6,10 @@
 #include "utils/Timer.hpp"
 #include "utils/Validate.hpp"
 
-template <template <typename> class Comp, template <typename> class Validate,
-          template <typename, typename> class Sorter, typename T>
+template <typename Sorter, template <typename> class Comp,
+          template <typename> class Validate, typename T>
 void TestSorting(int num, int size, T val_min, T val_max,
-                 Sorter<typename std::vector<T>::iterator, Comp<T>> sorter =
-                     Sorter<typename std::vector<T>::iterator, Comp<T>>(),
+                 Sorter sorter = Sorter(), Comp<T> comp = Comp<T>(),
                  Validate<T> validate = Validate<T>()) {
     std::random_device rd;
     std::mt19937 mt(rd());
@@ -27,7 +26,7 @@ void TestSorting(int num, int size, T val_min, T val_max,
         for (auto &t : test) {
             t = val_dist(mt);
         }
-        sorter.Sort(test.begin(), test.end());
+        sorter.Sort(test.begin(), test.end(), comp);
         if (!ValidateOrder(test.begin(), test.end(), validate)) {
             failed_tests.emplace_back(test);
         }
@@ -46,11 +45,14 @@ void TestSorting(int num, int size, T val_min, T val_max,
 }
 
 int main() {
-    TestSorting<std::less, std::less_equal, MergeSort>(100, 20, -324, 700);
-    TestSorting<std::greater, std::greater_equal, MergeSort>(100, 20, -324,
+    TestSorting<MergeSort, std::less, std::less_equal>(100, 20, -324, 700);
+    TestSorting<MergeSort, std::greater, std::greater_equal>(100, 20, -324,
                                                              700);
-    TestSorting<std::less, std::less_equal, QuickSort>(100, 20, -324, 700);
-    TestSorting<std::greater, std::greater_equal, QuickSort>(100, 20, -324,
+    TestSorting<QuickSort, std::less, std::less_equal>(100, 20, -324, 700);
+    TestSorting<QuickSort, std::greater, std::greater_equal>(100, 20, -324,
                                                              700);
+    std::vector<int> t{0, 1};
+    MergeSort::Sort(t.begin(), t.end());
+
     return 0;
 }
