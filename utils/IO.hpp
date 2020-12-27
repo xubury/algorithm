@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-namespace io {
+namespace utils {
 
 template <typename Iter>
 inline void PrintVector(Iter begin, Iter end) {
@@ -14,6 +14,6 @@ inline void PrintVector(Iter begin, Iter end) {
     std::cout << std::endl;
 }
 
-}  // namespace io
+}  // namespace utils
 
 #endif

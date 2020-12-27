@@ -4,6 +4,8 @@
 #include <chrono>
 #include <ctime>
 
+namespace utils {
+
 class WallTimer {
    private:
     typedef std::chrono::high_resolution_clock TimerClock;
@@ -33,5 +35,7 @@ inline std::size_t WallTimer::GetElapsedMS() const {
 inline float WallTimer::GetElapsedSec() const {
     return static_cast<float>(GetElapsedMS()) / 1000.0f;
 }
+
+}  // namespace utils
 
 #endif /* TIMER_H */

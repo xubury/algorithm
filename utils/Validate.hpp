@@ -4,6 +4,8 @@
 #include <functional>
 #include <iostream>
 
+namespace utils {
+
 template <typename Iter, typename Comp = std::less_equal<
                              typename std::iterator_traits<Iter>::value_type>>
 inline bool ValidateOrder(Iter start, Iter end, Comp comp = Comp()) {
@@ -15,5 +17,6 @@ inline bool ValidateOrder(Iter start, Iter end, Comp comp = Comp()) {
     }
     return true;
 }
+}  // namespace utils
 
 #endif /* VALIDATE_H */

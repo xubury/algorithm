@@ -17,17 +17,17 @@ void TestSorting(int num, int size, T val_min, T val_max,
     std::cout << "Running sorting test with " << num << " random inputs.\n";
     std::cout << "contanier size = [1," << size << "], value =[" << val_min
               << "," << val_max << "]\n";
-    WallTimer timer;
+    utils::WallTimer timer;
     std::vector<std::vector<T>> failed_tests;
     for (int i = 0; i < num; ++i) {
-        std::uniform_int_distribution<T> dist(1, size);
-        std::uniform_int_distribution<T> val_dist(val_min, val_max);
+        std::uniform_int_distribution<int> dist(1, size);
+        std::uniform_int_distribution<int> val_dist(val_min, val_max);
         std::vector<int> test(dist(mt));
         for (auto &t : test) {
             t = val_dist(mt);
         }
         sorter.Sort(test.begin(), test.end(), comp);
-        if (!ValidateOrder(test.begin(), test.end(), validate)) {
+        if (!utils::ValidateOrder(test.begin(), test.end(), validate)) {
             failed_tests.emplace_back(test);
         }
     }
@@ -39,7 +39,7 @@ void TestSorting(int num, int size, T val_min, T val_max,
         std::cout << "Failing test:\n";
     }
     for (auto &test : failed_tests) {
-        io::PrintVector(test.begin(), test.end());
+        utils::PrintVector(test.begin(), test.end());
     }
     std::flush(std::cout);
 }
