@@ -49,11 +49,4 @@ inline Iter QuickSort<Iter, Comp>::GetPivot(Iter start, Iter end, Comp comp) {
     return start + i;
 }
 
-template <typename Iter, typename Comp>
-struct Sorter {
-    void operator()(Iter start, Iter end, Comp comp) {
-        QuickSort<Iter, Comp>::Sort(start, end, comp);
-    }
-};
-
 #endif /* QUICKSORT_H */
