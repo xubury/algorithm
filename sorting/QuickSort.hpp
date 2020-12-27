@@ -3,20 +3,19 @@
 
 #include <functional>
 
+template <typename Iter,
+          typename Comp =
+              std::less<typename std::iterator_traits<Iter>::value_type>>
 class QuickSort {
    public:
-    template <typename Iter,
-              typename Comp =
-                  std::less<typename std::iterator_traits<Iter>::value_type>>
-    static void Sort(Iter start, Iter end, Comp comp = Comp());
+    void Sort(Iter start, Iter end, Comp comp = Comp());
 
    private:
-    template <typename Iter, typename Comp>
-    static Iter GetPivot(Iter start, Iter end, Comp comp);
+    Iter GetPivot(Iter start, Iter end, Comp comp);
 };
 
 template <typename Iter, typename Comp>
-inline void QuickSort::Sort(Iter start, Iter end, Comp comp) {
+inline void QuickSort<Iter, Comp>::Sort(Iter start, Iter end, Comp comp) {
     if (std::distance(start, end) >= 2) {
         Iter pivot = GetPivot(start, end, comp);
         Sort(start, pivot, comp);
@@ -25,7 +24,7 @@ inline void QuickSort::Sort(Iter start, Iter end, Comp comp) {
 }
 
 template <typename Iter, typename Comp>
-inline Iter QuickSort::GetPivot(Iter start, Iter end, Comp comp) {
+inline Iter QuickSort<Iter, Comp>::GetPivot(Iter start, Iter end, Comp comp) {
     typename std::iterator_traits<Iter>::value_type key = *start;
     std::size_t i = 0;
     std::size_t j = std::distance(start, end) - 1;

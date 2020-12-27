@@ -4,22 +4,20 @@
 #include <functional>
 #include <vector>
 
+template <typename Iter,
+          typename Comp =
+              std::less<typename std::iterator_traits<Iter>::value_type>>
 class MergeSort {
    public:
-    template <typename Iter,
-              typename Comp =
-                  std::less<typename std::iterator_traits<Iter>::value_type>>
-    static void Sort(Iter start, Iter end, Comp comp = Comp());
+    void Sort(Iter start, Iter end, Comp comp = Comp());
 
    private:
-    template <typename Iter,
-              typename Comp =
-                  std::less<typename std::iterator_traits<Iter>::value_type>>
-    static void Merge(Iter start, Iter mid, Iter end, Comp comp);
+    void Merge(Iter start, Iter mid, Iter end, Comp comp);
 };
 
 template <typename Iter, typename Comp>
-inline void MergeSort::Merge(Iter start, Iter mid, Iter end, Comp comp) {
+inline void MergeSort<Iter, Comp>::Merge(Iter start, Iter mid, Iter end,
+                                         Comp comp) {
     std::size_t i = 0;
     std::size_t j = 0;
     std::size_t n1 = std::distance(start, mid);
@@ -46,7 +44,7 @@ inline void MergeSort::Merge(Iter start, Iter mid, Iter end, Comp comp) {
 }
 
 template <typename Iter, typename Comp>
-inline void MergeSort::Sort(Iter start, Iter end, Comp comp) {
+inline void MergeSort<Iter, Comp>::Sort(Iter start, Iter end, Comp comp) {
     std::size_t dist = std::distance(start, end);
     if (dist < 2) return;
     Iter mid = start + dist / 2;
