@@ -6,6 +6,22 @@
 #include "utils/Timer.hpp"
 #include "utils/Validate.hpp"
 
+// Declare a class template
+template <bool is_integral, typename T>
+struct uniform_distribution_selector;
+
+// Specialize for true
+template <typename T>
+struct uniform_distribution_selector<true, T> {
+    using type = typename std::uniform_int_distribution<T>;
+};
+
+// Specialize for false
+template <typename T>
+struct uniform_distribution_selector<false, T> {
+    using type = typename std::uniform_real_distribution<T>;
+};
+
 template <typename Sorter, template <typename> class Comp,
           template <typename> class Validate, typename T>
 void TestSorting(int num, int size, T val_min, T val_max,
@@ -21,8 +37,12 @@ void TestSorting(int num, int size, T val_min, T val_max,
     std::vector<std::vector<T>> failed_tests;
     for (int i = 0; i < num; ++i) {
         std::uniform_int_distribution<int> dist(1, size);
-        std::uniform_int_distribution<int> val_dist(val_min, val_max);
-        std::vector<int> test(dist(mt));
+        using uniform_distribution_type =
+            typename uniform_distribution_selector<std::is_integral<T>::value,
+                                                   T>::type;
+
+        uniform_distribution_type val_dist(val_min, val_max);
+        std::vector<T> test(dist(mt));
         for (auto &t : test) {
             t = val_dist(mt);
         }
@@ -45,7 +65,7 @@ void TestSorting(int num, int size, T val_min, T val_max,
 }
 
 int main() {
-    TestSorting<MergeSort, std::less, std::less_equal>(100, 20, -324, 700);
+    TestSorting<MergeSort, std::less, std::less_equal>(100, 20, -324.2, 700.4);
     TestSorting<MergeSort, std::greater, std::greater_equal>(100, 20, -324,
                                                              700);
     TestSorting<QuickSort, std::less, std::less_equal>(100, 20, -324, 700);
