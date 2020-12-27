@@ -15,7 +15,7 @@ void TestSorting(int num, int size, T val_min, T val_max,
     std::random_device rd;
     std::mt19937 mt(rd());
 
-    std::cout << "Running sorting test of total " << num << " random input\n";
+    std::cout << "Running sorting test with " << num << " random inputs.\n";
     std::cout << "contanier size = [1," << size << "], value =[" << val_min
               << "," << val_max << "]\n";
     WallTimer timer;
