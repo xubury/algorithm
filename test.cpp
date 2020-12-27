@@ -7,10 +7,10 @@
 #include "utils/Validate.hpp"
 
 template <template <typename> class Comp, template <typename> class Validate,
-          template <typename, typename> class T2, typename T>
+          template <typename, typename> class Sorter, typename T>
 void TestSorting(int num, int size, T val_min, T val_max,
-                 T2<typename std::vector<T>::iterator, Comp<T>> sorter =
-                     T2<typename std::vector<T>::iterator, Comp<T>>(),
+                 Sorter<typename std::vector<T>::iterator, Comp<T>> sorter =
+                     Sorter<typename std::vector<T>::iterator, Comp<T>>(),
                  Validate<T> validate = Validate<T>()) {
     std::random_device rd;
     std::mt19937 mt(rd());
