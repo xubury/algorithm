@@ -50,8 +50,8 @@ inline void MergeSort::Sort(Iter start, Iter end, Comp comp) {
     std::size_t dist = std::distance(start, end);
     if (dist < 2) return;
     Iter mid = start + dist / 2;
-    MergeSort(start, mid, comp);
-    MergeSort(mid, end, comp);
+    Sort(start, mid, comp);
+    Sort(mid, end, comp);
     Merge(start, mid, end, comp);
 }
 
