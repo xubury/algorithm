@@ -11,9 +11,7 @@ class QuickSort {
     static void Sort(Iter start, Iter end, Comp comp = Comp());
 
    private:
-    template <typename Iter,
-              typename Comp =
-                  std::less<typename std::iterator_traits<Iter>::value_type>>
+    template <typename Iter, typename Comp>
     static Iter GetPivot(Iter start, Iter end, Comp comp);
 };
 
