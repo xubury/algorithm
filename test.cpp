@@ -11,8 +11,7 @@ void TestSorting(int num, int size, T val_min, T val_max, T2 func) {
     std::random_device rd;
     std::mt19937 mt(rd());
 
-    std::cout << "Running merge sort of total " << num
-              << " random tests input\n";
+    std::cout << "Running sorting test of total " << num << " random input\n";
     std::cout << "contanier size = [1," << size << "], value =[" << val_min
               << "," << val_max << "]\n";
     WallTimer timer;
