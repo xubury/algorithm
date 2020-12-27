@@ -8,8 +8,10 @@ namespace utils {
 
 template <typename Iter>
 inline void PrintVector(Iter begin, Iter end) {
+    std::cout << "[";
     while (begin != end) {
-        std::cout << *begin++ << " ";
+        char sep = begin + 1 != end ? ' ' : ']';
+        std::cout << *begin++ << sep;
     }
     std::cout << std::endl;
 }
