@@ -26,7 +26,7 @@ inline void MergeSort::Merge(Iter start, Iter mid, Iter end, Comp comp) {
     std::size_t n2 = std::distance(mid, end);
     std::vector<typename std::iterator_traits<Iter>::value_type> L(n1);
     for (; i < n1; ++i) {
-        L[i] = *(start + i);
+        L[i] = start[i];
     }
     i = 0;
     j = 0;

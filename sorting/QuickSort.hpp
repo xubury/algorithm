@@ -2,6 +2,7 @@
 #define QUICKSORT_H
 
 #include <functional>
+
 class QuickSort {
    public:
     template <typename Iter,
@@ -34,7 +35,7 @@ inline Iter QuickSort::GetPivot(Iter start, Iter end, Comp comp) {
         }
 
         if (i < j) {
-            start[i] = *(start + j);
+            start[i] = start[j];
         }
 
         while (i < j && comp(start[i], key)) {
@@ -42,7 +43,7 @@ inline Iter QuickSort::GetPivot(Iter start, Iter end, Comp comp) {
         }
 
         if (i < j) {
-            start[j] = *(start + i);
+            start[j] = start[i];
         }
     }
     start[i] = key;
