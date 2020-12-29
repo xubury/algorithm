@@ -1,4 +1,3 @@
-
 #include "sorting/BubbleSort.hpp"
 #include "sorting/MergeSort.hpp"
 #include "sorting/QuickSort.hpp"
