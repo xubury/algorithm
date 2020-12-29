@@ -1,4 +1,5 @@
 
+#include "sorting/BubbleSort.hpp"
 #include "sorting/MergeSort.hpp"
 #include "sorting/QuickSort.hpp"
 #include "utils/IO.hpp"
@@ -8,9 +9,10 @@
 
 template <typename Sorter, template <typename> class Comp,
           template <typename> class Validate, typename T>
-void TestSorting(int num, int size, T val_min, T val_max,
-                 Sorter sorter = Sorter(), Comp<T> comp = Comp<T>(),
-                 Validate<T> validate = Validate<T>()) {
+void TestSorting(int num, int size, T val_min, T val_max) {
+    Sorter sorter = Sorter();
+    Comp<T> comp = Comp<T>();
+    Validate<T> validate = Validate<T>();
     std::random_device rd;
     std::mt19937 mt(rd());
 
@@ -49,11 +51,15 @@ void TestSorting(int num, int size, T val_min, T val_max,
 }
 
 int main() {
-    TestSorting<MergeSort, std::less, std::less_equal>(100, 20, -324.2, 700.4);
-    TestSorting<MergeSort, std::greater, std::greater_equal>(100, 20, -324,
+    TestSorting<BubbleSort, std::less, std::less_equal>(900, 20, -324.2, 700.4);
+    TestSorting<BubbleSort, std::greater, std::greater_equal>(900, 20, -324,
+                                                              700);
+
+    TestSorting<MergeSort, std::less, std::less_equal>(900, 20, -324.2, 700.4);
+    TestSorting<MergeSort, std::greater, std::greater_equal>(900, 20, -324,
                                                              700);
-    TestSorting<QuickSort, std::less, std::less_equal>(100, 20, -324, 700);
-    TestSorting<QuickSort, std::greater, std::greater_equal>(100, 20, -324,
+    TestSorting<QuickSort, std::less, std::less_equal>(900, 20, -324, 700);
+    TestSorting<QuickSort, std::greater, std::greater_equal>(900, 20, -324,
                                                              700);
     std::vector<int> t{0, 1};
     MergeSort::Sort(t.begin(), t.end());
