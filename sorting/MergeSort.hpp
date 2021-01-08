@@ -18,16 +18,12 @@ class MergeSort {
 
 template <typename Iter, typename Comp>
 inline void MergeSort::Merge(Iter start, Iter mid, Iter end, Comp comp) {
-    std::size_t i = 0;
-    std::size_t j = 0;
     std::size_t n1 = std::distance(start, mid);
     std::size_t n2 = std::distance(mid, end);
     std::vector<typename std::iterator_traits<Iter>::value_type> L(n1);
-    for (; i < n1; ++i) {
-        L[i] = start[i];
-    }
-    i = 0;
-    j = 0;
+    std::copy(start, mid, L.begin());
+    std::size_t i = 0;
+    std::size_t j = 0;
     while (i < n1 && j < n2) {
         if (comp(L[i], mid[j])) {
             *start++ = L[i++];
