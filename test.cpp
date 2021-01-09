@@ -1,3 +1,4 @@
+#include "binary_tree/bst.hpp"
 #include "sorting/BubbleSort.hpp"
 #include "sorting/MergeSort.hpp"
 #include "sorting/QuickSort.hpp"
@@ -49,6 +50,15 @@ void TestSorting(int num, int size, T val_min, T val_max) {
     std::flush(std::cout);
 }
 
+void dfs(BinarySearchTree<int> &tree, std::size_t index) {
+    if (!tree.Valid(index)) {
+        return;
+    }
+    std::cout << tree.At(index) << " ";
+    dfs(tree, tree.Left(index));
+    dfs(tree, tree.Right(index));
+}
+
 int main() {
     TestSorting<BubbleSort, std::less, std::less_equal>(900, 20, -324.2, 700.4);
     TestSorting<BubbleSort, std::greater, std::greater_equal>(900, 20, -324,
@@ -63,5 +73,12 @@ int main() {
     std::vector<int> t{0, 1};
     MergeSort::Sort(t.begin(), t.end());
 
+    BinarySearchTree<int> tree;
+    tree.Insert(2);
+    tree.Insert(1);
+    tree.Insert(3);
+    tree.Insert(4);
+    dfs(tree, 0);
+    std::cout << std::endl;
     return 0;
 }
