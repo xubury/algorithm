@@ -2,7 +2,7 @@ TARGET := build/algorithm
 
 CXX ?= g++
 CXXWARNINGS ?= -Wall -Wextra -Wundef -pedantic
-CXXFEATURES ?= -std=c++11
+CXXFEATURES ?= -std=c++11  -pthread
 CXXFLAGS ?= ${CXXWARNINGS} ${CXXFEATURES} -g
 
 COMPILE.cpp = ${CXX} ${CXXFLAGS} ${CPPFLAGS} -c
@@ -23,7 +23,7 @@ $(OBJS): ${SOURCES}
 
 
 ${TARGET}: ${OBJS} 
-	${LINK.o} $^ ${LDLIBS} -o $@ 
+	${LINK.o} $^ -lpthread ${LDLIBS} -o $@ 
 
 clean:
 	${RM} ${TARGET} ${OBJS} 

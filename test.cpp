@@ -59,7 +59,72 @@ void dfs(BinarySearchTree<int> &tree, std::size_t index) {
     dfs(tree, tree.Right(index));
 }
 
+#include <condition_variable>
+#include <mutex>
+#include <thread>
+
+std::condition_variable cond;
+std::mutex mutex;
+int num = 0;
+
+void print(char a, int cnt) {
+    std::unique_lock<std::mutex> q(mutex);
+    for (int i = 0; i < cnt; ++i) {
+        while (num % 3 != a - 'A') cond.wait(q);
+        std::cout << a << "\n";
+    }
+    num++;
+    cond.notify_all();
+}
+
+int partition(std::vector<int> &arr, int start, int end) {
+    int key = arr[start];
+    --end;
+    while (start < end) {
+        while (start < end && arr[end] > key) {
+            --end;
+        }
+        if (start < end) {
+            arr[start] = arr[end];
+        }
+        while (start < end && arr[start] <= key) {
+            ++start;
+        }
+        if (start < end) {
+            arr[end] = arr[start];
+        }
+    }
+    arr[start] = key;
+    return start;
+}
+
+int findMedian(std::vector<int> &arr) {
+    int left = 0;
+    int right = arr.size();
+    int mid = right >> 1;
+    while (true) {
+        int k = partition(arr, left, right);
+        if (k < mid) {
+            left = k + 1;
+        } else if (k > mid) {
+            right = k;
+        } else {
+            return arr[mid];
+        }
+    }
+}
+
 int main() {
+    int count = 2;
+    while (count--) {
+        std::thread t1(print, 'A', 2);
+        std::thread t3(print, 'B', 3);
+        std::thread t2(print, 'C', 3);
+        t1.join();
+        t2.join();
+        t3.join();
+    }
+    std::cout << std::endl;
     TestSorting<BubbleSort, std::less, std::less_equal>(900, 20, -324.2, 700.4);
     TestSorting<BubbleSort, std::greater, std::greater_equal>(900, 20, -324,
                                                               700);
@@ -70,15 +135,8 @@ int main() {
     TestSorting<QuickSort, std::less, std::less_equal>(900, 20, -324, 700);
     TestSorting<QuickSort, std::greater, std::greater_equal>(900, 20, -324,
                                                              700);
-    std::vector<int> t{0, 1};
-    MergeSort::Sort(t.begin(), t.end());
-
-    BinarySearchTree<int> tree;
-    tree.Insert(2);
-    tree.Insert(1);
-    tree.Insert(3);
-    tree.Insert(4);
-    dfs(tree, 0);
-    std::cout << std::endl;
+    std::vector<int> t{11, 12, 10, 2, 3, 4, 15, 2, 4, 1, 0};
+    std::cout << findMedian(t) << std::endl;
+    utils::PrintVector(t.begin(), t.end());
     return 0;
 }
